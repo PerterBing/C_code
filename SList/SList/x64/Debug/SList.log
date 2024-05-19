@@ -1,0 +1,13 @@
+﻿  SList.c
+D:\vs 2022\DataStructs\SList\SList\SList.c(28,30): warning C4028: 形参 1 与声明不同
+  test.c
+D:\vs 2022\DataStructs\SList\SList\test.c(7,16): warning C4047: “函数”:“SLTNode *”与“SLTNode **”的间接级别不同
+D:\vs 2022\DataStructs\SList\SList\test.c(7,16): warning C4024: “SListPushBack”: 形参和实参 1 的类型不同
+D:\vs 2022\DataStructs\SList\SList\test.c(8,16): warning C4047: “函数”:“SLTNode *”与“SLTNode **”的间接级别不同
+D:\vs 2022\DataStructs\SList\SList\test.c(8,16): warning C4024: “SListPushBack”: 形参和实参 1 的类型不同
+D:\vs 2022\DataStructs\SList\SList\test.c(9,16): warning C4047: “函数”:“SLTNode *”与“SLTNode **”的间接级别不同
+D:\vs 2022\DataStructs\SList\SList\test.c(9,16): warning C4024: “SListPushBack”: 形参和实参 1 的类型不同
+D:\vs 2022\DataStructs\SList\SList\test.c(10,16): warning C4047: “函数”:“SLTNode *”与“SLTNode **”的间接级别不同
+D:\vs 2022\DataStructs\SList\SList\test.c(10,16): warning C4024: “SListPushBack”: 形参和实参 1 的类型不同
+  正在生成代码...
+  SList.vcxproj -> D:\vs 2022\DataStructs\SList\x64\Debug\SList.exe
