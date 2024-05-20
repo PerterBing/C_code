@@ -1,0 +1,4 @@
+﻿  test.c
+D:\vs 2022\DataStructs\SListTest\SListTest\test.c(104,19): warning C4047: “函数”:“SLTNode *”与“SListNode **”的间接级别不同
+D:\vs 2022\DataStructs\SListTest\SListTest\test.c(104,19): warning C4024: “SListPushBack”: 形参和实参 1 的类型不同
+  SListTest.vcxproj -> D:\vs 2022\DataStructs\SListTest\x64\Debug\SListTest.exe
