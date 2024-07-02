@@ -159,10 +159,11 @@
 //	return 0;
 //}
 
-
+#include<Windows.h>
+#include<stdlib.h>
+#include<time.h>
 //char* gets(char* str);
-int main()
-{
+
 	/*double pi = 3.141500;
 	scanf_s("%lf", &pi);
 	printf("pi=%le\n", pi);
@@ -190,8 +191,194 @@ int main()
 
 	/*gets(buf);
 	printf("buf=%s\n", buf);*/
-	int a = 6500;
-	printf("%c\n", (char)a);
-	
+	//int a = 6500;
+	//printf("%c\n", (char)a);
+	//
+
+	//putchar(48);
+
+	//int a = 0;
+	//int* p = &a;
+	//printf("%d\n", sizeof(int*));
+
+	//printf("printf(\"hello world!\\n\");\n");
+	/*printf("\\ta");*/
+
+	//for (int i = 0, k = 0; k = 0; k++)
+	//{
+	//	printf("1111111\n");
+	////}
+	//printf("111111\n");
+	//Sleep(1000);
+	//printf("222222\n");
+	//Sleep(1000);
+	//system("cls");
+
+//int fib(int n)
+//{
+//	if (n < 0)
+//		return -1;
+//	else if (n == 0)
+//		return 0;
+//	else if (n == 1)
+//		return 1;
+//	else
+//		return fib(n - 1) + fib(n - 2);
+//}
+//
+//int main()
+//{
+//	int n = 0;
+//	printf("请输入fib数：\n");
+//	scanf_s("%d", &n);
+//	printf("%d\n", fib(n));
+//	return 0;
+//}
+//
+//int main()
+//{
+//	int n, n1 = 1, n2 = 1, n3;
+//	printf("求斐波那契数前n个数：\n");
+//	scanf_s("%d", &n);
+//	if (n <= 2)
+//		printf("数列：%d %d", n1, n2);
+//	else
+//	{
+//		printf("数列：%d %d", n1, n2);
+//		for (int i = 3; i <= n; i++) {
+//			n3 = n1 + n2;
+//			printf(" %d", n3);
+//			n1 = n2;
+//			n2 = n3;
+//		}
+//	}
+//
+//}
+
+//int main()
+//{
+//	char arr[] = "anagram";
+//	char* s = arr;
+//	int sz=sizeof(s) / sizeof(*s);
+//	printf("sizeof(arr)=%d\n", sizeof(arr));
+//	printf("sizeof(arr[0])=%d\n", sizeof(arr[0]));
+//	printf("sizeof(arr)/sizeof(arr[0])=%d\n", sizeof(arr) / sizeof(arr[0]));
+//
+//	printf("sizeof(s)=%d\n", sizeof(&(*s)));
+//	printf("sizeof(*s)=%d\n", sizeof(*s));
+//	printf("%d\n", sz);
+//	/*strlen(s);
+//	printf("%d\n", strlen(s));*/
+//	if ('a' < 'b')
+//	{
+//		printf("11111111\n");
+//	}
+//	return 0;
+//}
+
+
+//我的字母异位，我的狗屎代码
+//int main()
+//{
+//	char arr[] = "anagram";
+//	char arr1[] = "aganmar";
+//	char* s = arr;
+//	char* t = arr1;
+//	for (int i = 0; i < strlen(s) - 1; i++)
+//	{
+//		for (int j = 0; j < strlen(s) - i - 1; j++)
+//		{
+//			if (*(s + j + 1) == '\0')
+//			{
+//				break;
+//			}
+//			if (*(s + j) > *(s + j + 1))
+//			{
+//				char temp = *(s + j);
+//				*(s + j) = *(s + j + 1);
+//				*(s + j+1) = temp;
+//			}
+//		}
+//	}
+//
+//	for (int i = 0; i < strlen(t) - 1; i++)
+//	{
+//		for (int j = 0; j < strlen(t) - i - 1; j++)
+//		{
+//			if (*(t + j + 1) == '\0')
+//			{
+//				break;
+//			}
+//			if (*(t + j) > *(t + j + 1))
+//			{
+//				char temp = *(t + j);
+//				*(t + j) = *(t + j + 1);
+//				*(t + j + 1) = temp;
+//			}
+//		}
+//	}
+//	printf("%s\n", s);
+//	printf("%s\n", t);
+//	if (!strcmp(s, t))
+//	{
+//		printf("11111111\n");
+//	}
+//	else
+//	{
+//		printf("222222222\n");
+//	}
+//	return 0;
+//}
+//
+////人家的牛逼代码
+//int cmp(const void *a, const void *b)
+//{
+//	return strcmp((char*)a, (char*)b);
+//}
+//
+//int main()
+//{
+//	char arr1[] = "anagram";
+//	char arr2[] = "aganmar";
+//	char* s = arr1;
+//	char* t = arr2;
+//	if (strlen(s) != strlen(t))
+//	{
+//		return false;
+//	}
+//	qsort(s, strlen(s), sizeof(char), cmp);
+//	qsort(t, strlen(t), sizeof(char), cmp);
+//	if (!strcmp(s, t))
+//		printf("s和t是异构\n");
+//	else
+//		printf("s和t不是异构\n");
+//	return 0;
+//}
+
+int my_strlen(char* str)
+{
+	char* start = str;
+	while (*str != '\0')
+	{
+		str++;
+	}
+	return (str - start);
+}
+
+
+int main()
+{
+	//static int a;
+	//printf("%d\n", a);
+	//printf("%d\n", b);
+//	char arr[] = "hello bit";
+//	char arr1[] = "hello";
+//	char* p = &arr1[7];
+//	printf("%d\n", p - arr1);
+	//printf("%d\n",my_strlen(arr));
+	int a = 0;
+	int b = 0;
+	scanf_s("%d %d", &a, &b);
+	printf("%d,%d\n", a, b);
 	return 0;
 }
