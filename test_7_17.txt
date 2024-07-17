@@ -1,0 +1,56 @@
+#判断用户家目录下是否存在file-dir和dir-dir目录，如果不存在就创建，如果存在就清空
+
+#向脚本输入任意一个路径，将这个路径下的文件拷贝到file-dir下将目录拷贝到dir-dir下
+
+#输出拷贝的文件的个数和目录的个数
+
+function check_dir()
+{
+arr=("/home/linux/file-dir" "/home/linux/dir.dir")
+
+for i in  ${arr[*]}
+do
+    if [ -d $i ]
+    then
+        rm -rf $i
+        mkdir $i
+        echo "$i 是目录,清除了目录下所有文件"
+    else
+        if [ -e $i ]
+        then
+            rm -rf $i
+            echo "存在其他类型文件，已移除$i"
+        fi
+        mkdir $i
+        echo "新建了$i目录"
+    fi
+done
+}
+
+function copy_path()
+{
+    if [ -d $1 ]
+    then
+        for var in `ls $1`
+        do
+            if [ -f $1/$var ]
+            then
+                cp $1/$var ${arr[0]}
+                ((f++))
+            elif [ -d $1/$var ]
+            then    
+                cp $1/$var ${arr[1]} -r
+                ((d++))
+            fi
+        done
+    else
+        echo "输入的路径错误，请重试"
+        exit
+    fi
+        echo "拷贝文件数：$f"
+        echo "拷贝目录数：$d"
+}
+
+check_dir
+read -p "输入任意路径 > " path
+copy_path $path
