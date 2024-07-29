@@ -1,331 +1,227 @@
-#include "LinkList.h"
+#define _CRT_SECURE_NO_WARNINGS
+#include"LinkList.h"
 
-int create_node(node_t **p, int data)
-{
-    if (NULL == p)
-    {
-        printf("æ— å‚ä¼ å…¥\n");
-        return -1;
-    }
-    *p = (node_t *)malloc(sizeof(node_t));
-    if (*p == NULL)
-    {
-        printf("malloc file\n");
-        return -1;
-    }
-
-    (*p)->data = data;
-    (*p)->next = NULL;
+//´´½¨½Úµã
+node_t* create_node(node_t** pnew,int data) {
+	if (pnew == NULL) {
+		printf("´«²ÎÎª¿Õ\n");
+		return -1;
+	}
+	*pnew = (node_t*)malloc(sizeof(node_t));
+	if (*pnew == NULL) {
+		printf("pnew malloc fail\n");
+		return -1;
+	}
+	(*pnew)->data = data;
+	(*pnew)->next = NULL;
+	return *pnew;//×¢Òâ·µ»ØÖµµÄÀàĞÍ	
 }
 
-int insert_head_node(node_t *phead, int data)// å¤´æ’
-{
-    if (NULL == phead)
-    {
-        printf("æ— å‚ä¼ å…¥\n");
-        return -1;
-    }
-    node_t *pnew = NULL;
-    create_node(&pnew, data);
-    pnew->next = phead->next;
-    phead->next = pnew;
-    return 0;
+//Í·²å
+int insert_list_by_head(node_t* phead,int data) {
+	if (phead == NULL) {
+		printf("´«²ÎÎª¿Õ\n");
+		return -1;
+	}
+	node_t* pnew = NULL;
+	pnew=create_node(&pnew,data);
+	pnew->next = phead->next;
+	phead->next = pnew;
+	return 0;
 }
 
-int delete_head_node(node_t **phead) // å¤´åˆ 
-{
-    if (NULL == phead)
-    {
-        printf("æ— å‚ä¼ å…¥\n");
-        return -1;
-    }
-    node_t *cur = *phead;
-    *phead = (*phead)->next;
-    free(cur);
-    cur = NULL;
+int print_list(node_t* phead) {
+	if (phead == NULL) {
+		printf("´«²ÎÎª¿Õ\n");
+		return -1;
+	}
+	node_t* ptemp = phead;
+	while (ptemp->next != NULL) {
+		ptemp = ptemp->next;
+		printf("%d ", ptemp->data);
+		if (ptemp->next != NULL) {
+			printf("->");
+		}
+	}
+	puts("-> NULL");
 }
 
-int insert_tail_node(node_t *phead, int data) // å°¾æ’
-{
-    if (NULL == phead)
-    {
-        printf("æ— å‚ä¼ å…¥\n");
-        return -1;
-    }
-    node_t *pnew = NULL;
-    create_node(&pnew, data);
-    while (phead->next != NULL)
-    {
-        phead = phead->next;
-    }
-    phead->next = pnew;
-    return 0;
+//Î²²å
+int insert_list_by_tail(node_t* phead, int data) {
+	if (phead == NULL) {
+		printf("´«²ÎÎª¿Õ\n");
+		return -1;
+	}
+	node_t* ptail = phead;
+	while (ptail->next != NULL) {
+		ptail = ptail->next;
+	}
+	node_t* pnew = create_node(&pnew, data);
+	pnew->next = ptail->next;
+	ptail->next = pnew;
+	return 0;
 }
 
-int delete_tail_node(node_t *phead) // å°¾åˆ 
-{
-    if (NULL == phead)
-    {
-        printf("æ— å‚ä¼ å…¥\n");
-        return -1;
-    }
-    node_t *prev = phead;
-    node_t *cur = phead;
-    while (cur->next != NULL)
-    {
-        prev = cur;
-        cur = cur->next;
-    }
-    cur = NULL;
-    prev->next = NULL;
-    return 0;
+//posÎ»ÖÃ  1  2  3  4  5  6
+//       0 |1 |2 |3 |4| 5| 7
+int insert_list_by_pos(node_t* phead, int pos,int data) {
+	if (phead == NULL) {
+		printf("´«²ÎÎª¿Õ\n");
+		return -1;
+	}
+	node_t* ptemp = phead;
+	for (int i = 0; i < pos; i++) {
+		if (ptemp == NULL) {
+			printf("pos²»ºÏÀí\n");//²»Ò»ÖÂ
+			return -1;//²»Ò»ÖÂ
+		}
+		ptemp = ptemp->next;
+	}
+	if (pos < 0) {
+		printf("pos²»ºÏÀí\n");
+		return -1;
+	}
+	node_t* pnew = create_node(&pnew, data);
+	pnew->next= ptemp->next;
+	ptemp->next = pnew;
+	return 0;
 }
 
-int insert_pos_after_node(node_t *phead, int pos, int data) // posä½ç½®åæ’
-{
-    if (NULL == phead)
-    {
-        printf("æ— å‚ä¼ å…¥\n");
-        return -1;
-    }
-    node_t *pnew = NULL;
-    create_node(&pnew, data);
-    while (phead->data != pos)
-    {
-        phead = phead->next;
-    }
-    pnew->next = phead->next;
-    phead->next = pnew;
+int delete_list_by_tail(node_t* phead) {
+	if (phead == NULL) {
+		printf("´«²ÎÎª¿Õ\n");
+		return -1;
+	}
+	if (phead->next == NULL) {
+		printf("Á´±íÎŞÔªËØ\n");
+		return -1;
+	}
+	while (phead->next->next != NULL) {
+		phead = phead->next;
+	}
+	free(phead->next);;
+	phead->next = NULL;
+	return 0;
 }
 
-int insert_pos_list(node_t *phead, int pos, int data) // posæ˜¯æ¯ä¸ªæ•°æ®å…ƒç´ ä½ç½®
-{
-    if (NULL == phead)
-    {
-        printf("æ— å‚ä¼ å…¥\n");
-        return -1;
-    }
-    if (pos < 0)
-    {
-        printf("æ’å…¥å¤±è´¥\n");
-        return -1;
-    }
-
-    int num = 0;
-    node_t *cur = phead;
-    while (num != pos)
-    {
-        if (cur->next == NULL)
-        {
-            printf("è¶…å‡ºèŒƒå›´æ— æ³•æ’å…¥\n");
-            return -1;
-        }
-        cur = cur->next;
-        num++;
-    }
-    node_t *pnew = NULL;
-    create_node(&pnew, data);
-    pnew->next = cur->next;
-    cur->next = pnew;
-    return 0;
+int delet_list_by_head(node_t* phead) {
+	if (phead == NULL) {
+		printf("´«²ÎÎª¿Õ\n");
+		return -1;
+	}
+	if (phead->next == NULL) {
+		printf("Á´±íÎŞÔªËØ\n");
+		return -1;
+	}
+	node_t* pdel = phead->next;
+	phead->next = pdel->next;
+	free(pdel);
+	pdel = NULL;
+	return 0;
 }
 
-int delete_pos_list(node_t **phead, int pos) // ä»»æ„ä½ç½®åˆ é™¤
-{
-    if (NULL == phead)
-    {
-        printf("æ— å‚ä¼ å…¥\n");
-        return -1;
-    }
-    int num = 1;
-    node_t *cur = (*phead)->next;
-    node_t *prev = (*phead)->next;
-    if (pos < 1)
-    {
-        printf("posä¼ å…¥é”™è¯¯ï¼Œè¯·é‡è¯•\n");
-        return -1;
-    }else if(pos==1)
-    {
-        delete_head_node(phead);
-        return 0;
-    }
-    while (num != pos)
-    {
-        if (cur->next == NULL)
-        {
-            printf("æ²¡æœ‰poså¯¹åº”å…ƒç´ é¡¹ï¼Œåˆ é™¤é”™è¯¯\n");
-            return -1;
-        }
-        prev = cur;
-        cur = cur->next;
-        num++;
-    }
-    prev->next = cur->next;
-    free(cur);
-    cur = NULL;
-    printf("åˆ é™¤æˆåŠŸ\n");
+//posÎ»ÖÃ  1  2  3  4  5  6
+//         0  1  2  3  4  5
+int delete_list_by_pos(node_t* phead, int pos) {
+	if (phead == NULL) {
+		printf("´«²ÎÎª¿Õ\n");
+		return -1;
+	}
+	if (phead->next == NULL) {
+		printf("Á´±íÎŞÔªËØ\n");
+		return -1;
+	}
+	if (pos < 0) {
+		printf("pos²»ºÏÀí\n");
+		return -1;
+	}
+	node_t* ptemp = phead;
+	for (int i = 0; i < pos; i++) {
+		ptemp = ptemp->next;
+		if (ptemp->next== NULL) {//²»Ò»ÖÂ
+			printf("posÎ»ÖÃ²»ºÏÀí\n");
+			return -1;
+		}
+	}
+	node_t* pdel = ptemp->next;
+	ptemp->next = pdel->next;
+	free(pdel);
+	pdel = NULL;
+	return 0;
 }
 
-int modify_pos_list(node_t* phead,int pos,int data)//ä¿®æ”¹é“¾è¡¨æŒ‡å®šä½ç½®çš„å…ƒç´ 
-{
-    if (NULL == phead)
-    {
-        printf("æ— å‚ä¼ å…¥\n");
-        return -1;
-    }
-    if(pos<1)
-    {
-        printf("posè¾“å…¥é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥\n");
-        return -1;
-    }
-    int num=1;
-    node_t* cur=phead->next;
-    while(num!=pos)
-    {
-        if (cur->next == NULL)
-        {
-            printf("æ²¡æœ‰poså¯¹åº”å…ƒç´ é¡¹ï¼Œä¿®æ”¹å¤±è´¥\n");
-            return -1;
-        }
-        cur=cur->next;
-        num++;
-    }
-    cur->data=data;
-    printf("ä¿®æ”¹æˆåŠŸ\n");
+//posÎ»ÖÃ  1  2  3  4  5  6
+//         0  1  2  3  4  5
+int modify_list_by_pos(node_t* phead, int pos,int data) {
+	if (phead == NULL) {
+		printf("´«²ÎÎª¿Õ\n");
+		return -1;
+	}
+	if (phead->next == NULL) {
+		printf("Á´±íÎŞÔªËØ\n");
+		return -1;
+	}
+	if (pos < 0) {
+		printf("pos²»ºÏÀí\n");
+		return -1;
+	}
+	node_t* ptemp = phead;
+	for (int i = 0; i < pos+1; i++) {//²»Ò»ÖÂ
+		ptemp = ptemp->next;
+		if (ptemp == NULL) {//²»Ò»ÖÂ
+			printf("posÎ»ÖÃ²»ºÏÀí\n");
+			return -1;
+		}
+	}
+	ptemp->data = data;
+	return 0;
+}
+int search_list_by_pos(node_t* phead, int data ) {
+	if (phead == NULL) {
+		printf("´«²ÎÎª¿Õ\n");
+		return -1;
+	}
+	if (phead->next == NULL) {
+		printf("Á´±íÎŞÔªËØ\n");
+		return -1;
+	}
+	node_t* ptemp = phead;
+	int i = 0;
+	while (ptemp != NULL) {
+		ptemp = ptemp->next;
+		if (ptemp->data == data) {
+			printf("ÊÇµÚ%d¸öÔªËØ\n", i);
+			return 0;
+		}
+		i++;
+	}
+	printf("Ã»ÕÒµ½\n");
+	return -1;
 }
 
-int search_list(node_t* phead,int val)//æŸ¥æ‰¾é“¾è¡¨æŒ‡å®šä½ç½®çš„å…ƒç´ 
-{
-    if (NULL == phead)
-    {
-        printf("æ— å‚ä¼ å…¥\n");
-        return -1;
-    }
-    node_t* cur=phead->next;
-    while(cur!=NULL)
-    {
-        if(cur->data==val)
-        {
-            printf("æ‰¾åˆ°äº†:%d\n",cur->data);
-            return 0;
-        }
-    }
-    printf("æ‰¾ä¸åˆ°\n");
-    return 0;
-
+int clean_list(node_t* phead) {
+	if (phead == NULL) {
+		printf("´«²ÎÎª¿Õ\n");
+		return -1;
+	}
+	node_t* pdel = phead;
+	while (pdel->next != NULL) {
+		pdel = pdel->next;
+		phead->next = pdel->next;
+		free(pdel);
+		
+	}
+	pdel = NULL;
+	return 0;
 }
 
-//ä¸¤ä¸ªé“¾è¡¨åˆå¹¶
-node_t* combine_list1_list2(node_t* list1,node_t* list2){
-    if(list1==NULL){
-        return list2;
-    }
-    if(list2==NULL){
-        return list1;
-    }
-    node_t* head=NULL;
-    node_t* tail=NULL;
-    while(list1&&list2){
-        if(list1->data<list2->data){
-            if(tail==NULL){
-                head=tail=list1;
-            }else{
-                tail->next=list1;
-                tail=list1;
-            }
-            list1=list1->next;
-        }else{
-            if(tail==NULL)
-            {
-                head=tail=list2;
-            }else{
-                tail->next=list2;
-                tail=list2;
-            }
-            list2=list2->next;
-        }
-    }
-    printf("head: ");
-    Print_node(head);
-    if(list1!=NULL)
-    {
-        tail->next=list1;
-    }
-    if(list2!=NULL)
-    {
-        tail->next=list2;
-    }
-    return head;
-}
-
-node_t* overturn_list(node_t* phead)//é“¾è¡¨çš„ç¿»è½¬
-{
-    if (NULL == phead)
-    {
-        printf("æ— å‚ä¼ å…¥\n");
-        return NULL;
-    }
-    node_t* cur=phead->next->next;
-    node_t* next=NULL;
-    phead=phead->next;
-    phead->next=NULL;
-    while(cur!=NULL)
-    {
-        next=cur->next;
-        cur->next=phead;
-        phead=cur;
-        cur=next;
-    }
-    node_t *pnew = NULL;
-    create_node(&pnew, -1);
-    pnew->next=phead;
-    phead=pnew;
-    return phead;
-}
-
-node_t* soul_list(node_t* phead) //é“¾è¡¨çš„å‰”é‡
-{
-    node_t* head=phead->next;
-    while(head->next!=NULL)
-    {
-        node_t* cur=head->next;
-        node_t* prev=head;
-        while(cur!=NULL)
-        {
-            if(head->data==cur->data)
-            {
-                prev->next=cur->next;
-                cur=cur->next;
-            }else{
-                prev=cur;
-                cur=cur->next;
-            }
-            
-        }
-        head=head->next;
-        if(head==NULL)
-        {
-            break;
-        }
-    }
-    printf("å‰”é‡æˆåŠŸ: ");
-}
-
-int Print_node(node_t *phead)// æ‰“å°
-{
-    if (NULL == phead)
-    {
-        printf("æ— å‚ä¼ å…¥\n");
-        return -1;
-    }
-    node_t *ptemp = phead; // å¤‡ä»½å¤´ç»“ç‚¹
-    while (NULL != ptemp->next)
-    {
-        ptemp = ptemp->next;
-        printf("%d", ptemp->data);
-        if(NULL != ptemp->next)
-            printf("->");
-    }
-    printf("\n");
-    return 0;
+int destroy_list(node_t** phead) {
+	if (*phead == NULL || phead == NULL) {
+		printf("´«²ÎÎª¿Õ\n");
+		return -1;
+	}
+	clean_list(*phead);
+	free(*phead);
+	*phead = NULL;
+	return 0;
 }
